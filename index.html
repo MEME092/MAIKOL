@@ -1,6 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- MODAL ESTILO COOKERFEST -->
+<style>
+  #modalBlur {
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(8px);
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  #modalContent {
+    background: white;
+    color: #111;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  }
+  #modalContent h2 {
+    margin-top: 0;
+  }
+  #modalContent button {
+    background-color: #7b00ff;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+</style>
+<div id="modalBlur">
+  <div id="modalContent">
+    <h2>YeagerTrucos</h2>
+    <p>Para acceder a esta página, primero ve un anuncio.</p>
+    <button onclick="verAnuncio()">Ver anuncio</button>
+    <div id="adsZone" style="display:none; margin-top:20px;">
+      <p>Redirigiendo en <span id="countdown">5</span> segundos...</p>
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-5710936095528547"
+        data-ad-slot="8480492726"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+    </div>
+  </div>
+</div>
+<script>
+  function verAnuncio() {
+    document.querySelector('#adsZone').style.display = 'block';
+    let btn = document.querySelector('#modalContent button');
+    btn.style.display = 'none';
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    let seconds = 5;
+    let interval = setInterval(() => {
+      document.getElementById("countdown").textContent = seconds;
+      if (seconds === 0) {
+        clearInterval(interval);
+        document.getElementById("modalBlur").remove();
+      }
+      seconds--;
+    }, 1000);
+  }
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5710936095528547" crossorigin="anonymous"></script>
+
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5710936095528547"
      crossorigin="anonymous"></script>
 <meta charset="UTF-8">
