@@ -978,5 +978,115 @@ document.getElementById('close-modal').addEventListener('click', () => {
   document.body.style.overflow = 'auto';
 });
         </script>
+
+<!-- POPUP CON INTRO, BLOQUEO DE SCROLL, ANUNCIO Y RESPONSIVE -->
+<style>
+  #popup-anuncio, #popup-intro {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.85);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .popup-contenido {
+    background: #1e1e2f;
+    color: white;
+    padding: 2em;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 340px;
+    width: 100%;
+    box-shadow: 0 0 20px rgba(255,255,255,0.15);
+    animation: fadeZoom 0.6s ease forwards;
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  @keyframes fadeZoom {
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .popup-btn {
+    background: white;
+    color: black;
+    padding: 10px 20px;
+    margin-top: 1em;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  @media (max-width: 480px) {
+    .popup-contenido {
+      padding: 1.5em;
+      font-size: 0.95em;
+    }
+  }
+</style>
+
+<div id="popup-intro">
+  <div class="popup-contenido">
+    <h2>Cookerfest</h2>
+    <h3>¡Atención!</h3>
+    <p>Para ver el artículo, vea este breve anuncio.</p>
+    <button class="popup-btn" onclick="mostrarAnuncio()">Ver anuncio</button>
+  </div>
+</div>
+
+<div id="popup-anuncio">
+  <div class="popup-contenido">
+    <h2>Publicidad</h2>
+    <p>Espere mientras se carga su contenido...</p>
+    <div style="margin: 1em 0;">
+      <!-- BLOQUE DE ANUNCIO GOOGLE -->
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-5710936095528547"
+           data-ad-slot="5225426380"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+    <p>Cerrando en <span id="contador">5</span> segundos...</p>
+  </div>
+</div>
+
+<script>
+  if (!sessionStorage.getItem("popupMostrado")) {
+    setTimeout(() => {
+      document.getElementById("popup-intro").style.display = "flex";
+      document.body.style.overflow = "hidden";
+    }, 4000);
+  }
+
+  function mostrarAnuncio() {
+    document.getElementById("popup-intro").style.display = "none";
+    document.getElementById("popup-anuncio").style.display = "flex";
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    sessionStorage.setItem("popupMostrado", "true");
+
+    let segundos = 5;
+    const contador = document.getElementById("contador");
+    const intervalo = setInterval(() => {
+      segundos--;
+      contador.textContent = segundos;
+      if (segundos === 0) {
+        clearInterval(intervalo);
+        document.getElementById("popup-anuncio").style.display = "none";
+        document.body.style.overflow = "";
+      }
+    }, 1000);
+  }
+</script>
+
 </body>
 </html>
